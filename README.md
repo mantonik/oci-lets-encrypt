@@ -12,5 +12,13 @@ oci-init.sh
 User generate key to create API key on your account - admin account which have access to manage load balancer
 
 
+Download zip from repository 
+
+#setup this as root
+
+wget https://github.com/mantonik/oci-lets-encrypt/archive/refs/heads/main.zip
+unzip main.zip 
+
+
 
 
