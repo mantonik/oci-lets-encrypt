@@ -20,12 +20,13 @@ bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scrip
 #Ceate rsa key for oci
 mkdir ~/.oci
 cd ~/.oci
-openssl genrsa -out ~/.oci/oci_api_key.pem -aes128 2048   
-no passphrase 
+# generate key with passphase
+#openssl genrsa -out ~/.oci/oci_api_key.pem -aes128 2048   
+# no passphrase 
 openssl genrsa -out ~/.oci/oci_api_key.pem 2048   
 chmod go-rwx ~/.oci/oci_api_key.pem  
 openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pem 
-
+ 
 
 echo "-----"
 echo "Install Certboot"
@@ -34,6 +35,6 @@ get-pip.py
 pip3 install certbot
 
 #Create a root rsa key 
-ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa_rsync  -q -N ""
-cp ~/.ssh/id_rsa_rsync.pub /share/root_app1_id_rsa_rsync.pub
-chown 600 ~/.ssh/*
+#ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa_rsync  -q -N ""
+#cp ~/.ssh/id_rsa_rsync.pub /share/root_app1_id_rsa_rsync.pub
+#chown 600 ~/.ssh/*

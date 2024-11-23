@@ -14,13 +14,14 @@ User generate key to create API key on your account - admin account which have a
 
 Download zip from repository 
 
-#setup this as root
+#setup this as opc user
 
+mkdir bin 
+cd bin 
 rm -rf oci-lets-encrypt-main
-rm -f main.zip
 wget https://github.com/mantonik/oci-lets-encrypt/archive/refs/heads/main.zip
 unzip main.zip 
-
-
+rm -f main.zip
+chmod 755 oci-lets-encrypt-main/bin/*.sh
 
 
