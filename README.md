@@ -5,9 +5,7 @@ unzip this package to bin folder
 it will create a folder oci-lets-encrytp 
 with subset of the folders where you will configure envirement 
 
-start with oci-init.sh script - script will install required packaged for oci, setup a rsa key and install certboot.
 
-oci-init.sh 
 
 User generate key to create API key on your account - admin account which have access to manage load balancer
 
@@ -16,12 +14,34 @@ Download zip from repository
 
 #setup this as opc user
 
-mkdir bin 
-cd bin 
+mkdir ~/bin 
+cd ~/bin 
 rm -rf oci-lets-encrypt-main
 wget https://github.com/mantonik/oci-lets-encrypt/archive/refs/heads/main.zip
 unzip main.zip 
 rm -f main.zip
 chmod 755 oci-lets-encrypt-main/bin/*.sh
+/home/opc/bin/oci-lets-encrypt-main/bin/oci-init.sh 
+touch ~/.oci/config
+cat ~/.oci/oci_api_key_public.pem
+chmod 600 ~/.oci/*
 
+
+
+Login to OCI console and add API key 
+
+My Profile
+API keys
+
+copy popup message to config file
+
+Replace line 
+key_file=<path to your private keyfile> # TODO
+
+with  (adust path if you using different user)                                  
+key_file=/home/opc/.oci/oci_api_key.pem
+
+Validate connection to OCI 
+
+oci os ns get
 

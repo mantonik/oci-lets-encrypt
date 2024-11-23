@@ -11,7 +11,8 @@ cd ~/install
 wget https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh
 mv install.sh oci_install.sh
 chmod 700 oci_install.sh
-sudo ./oci_install.sh --accept-all-defaults
+sudo rm 
+./oci_install.sh --accept-all-defaults
 rm -f ./oci_install.sh
 
 #install cli from github directly
