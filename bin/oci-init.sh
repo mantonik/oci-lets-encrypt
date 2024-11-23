@@ -6,15 +6,16 @@ echo "Script will install required packages for certbot and setup certificate fo
 # Install oci tools as root
 echo "----" 
 echo "Install OCI tools"
-mkdir /root/install
-cd /root/install
+mkdir ~/install
+cd ~/install
 wget https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh
 mv install.sh oci_install.sh
 chmod 700 oci_install.sh
-./oci_install.sh --accept-all-defaults
+sudo ./oci_install.sh --accept-all-defaults
 rm -f ./oci_install.sh
 
-bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh) --accept-all-defaults"
+#install cli from github directly
+#bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh) --accept-all-defaults"
 
 
 #Ceate rsa key for oci
@@ -30,8 +31,8 @@ openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pe
 
 echo "-----"
 echo "Install Certboot"
-python -m ensurepip --upgrade
-get-pip.py
+sudo python -m ensurepip --upgrade
+sudo get-pip.py
 pip3 install certbot
 
 #Create a root rsa key 
