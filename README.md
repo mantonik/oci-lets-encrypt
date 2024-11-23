@@ -16,6 +16,8 @@ Download zip from repository
 
 #setup this as root
 
+rm -rf oci-lets-encrypt-main
+rm -f main.zip
 wget https://github.com/mantonik/oci-lets-encrypt/archive/refs/heads/main.zip
 unzip main.zip 
 
