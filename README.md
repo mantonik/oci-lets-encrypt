@@ -17,10 +17,12 @@ Download zip from repository
 mkdir ~/bin 
 cd ~/bin 
 rm -rf oci-lets-encrypt-main
+rm -rf oci-lets-encrypt
 wget https://github.com/mantonik/oci-lets-encrypt/archive/refs/heads/main.zip
 unzip main.zip 
 rm -f main.zip
 chmod 755 oci-lets-encrypt-main/bin/*.sh
+cd ~/bin 
 mv oci-lets-encrypt-main oci-lets-encrypt
 
 #Generate a key
@@ -46,7 +48,8 @@ Validate connection to OCI
 
 oci os ns get
 
-# Generate certificate 
+# Generate certificate
+# Script need to be run as user with sudo access 
 ~/bin/oci-lets-encrypt/bin/1.lets_encrypt_get_ssl_certificate.sh
 
 

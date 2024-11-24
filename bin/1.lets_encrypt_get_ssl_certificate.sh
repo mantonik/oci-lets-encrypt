@@ -1,6 +1,6 @@
 #!/bin/bash 
 #Script will generate ssl certificate for provided domain.
-# 11/23/2024 MA update scritp to be executed by regular user
+# 11/23/2024 MA update scritp to be executed by regular user 
 
 echo "Enter your domain name to create let's encrypt certificagte: "
 read DOMAIN
@@ -9,15 +9,13 @@ read EMAIL
 echo "Eneter OCI ID of the Load Balancer"
 read LB_OCIID
 
-if [ ! -e /root/etc ]; then 
-  mkdir /root/etc
+if [ ! -e~/bin/oci-lets-encrypt/etc ]; then 
+  mkdir -p ~/bin/oci-lets-encrypt/etc
 fi 
 
 #Update configuration file 
-
+touch ~/bin/oci-lets-encrypt/etc/oci_network.cfg
 echo "LB_OCIID:"${LB_OCIID} >> ~/bin/oci-lets-encrypt/etc/oci_network.cfg
-
-#rm /etc/letsencrypt/
 
 #Register account 
 #ask user for email
@@ -31,13 +29,17 @@ sudo /usr/local/bin/certbot register -m ${EMAIL}  --agree-tos --non-interactive
 sudo /usr/local/bin/certbot certonly --webroot -w /data/nginx/letsencrypt/ -d ${DOMAIN}
 
 #Check if certificate was created succesfully
+sudo chmod 755 /etc/letsencrypt/live
 if [ ! -e /etc/letsencrypt/live/${DOMAIN} ]; then 
   echo "Certificate was not created succesfully. Pleaes check why"
   echo "Missing folder /etc/letsencrypt/live/${DOMAIN}"
   exit
 fi
 
+
 lets_encrypts_update_oci_lb_ssl_cert.sh ${DOMAIN}
+
+sudo chmod 700 /etc/letsencrypt/live
 
 echo "Exit"
 exit
