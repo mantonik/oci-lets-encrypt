@@ -52,13 +52,16 @@ echo "Create data directory for nginx"
 sudo mkdir -p /data/nginx/html;
 sudo mkdir -p /data/nginx/domain;
 sudo mkdir -p /data/nginx/letsencrypt;
-sudo echo "Server is working" >  /data/nginx/html/index.html
-sudo echo "Error 404" > /data/nginx/html/404.html
-sudo echo "Error 50x" > /data/nginx/html/50x.html
-#echo "Copy default config to nginx folder"
-sudo cp -rf /home/opc/bin/oci-lets-encrypt-main/server-config /
 
-service nginx restart
+#echo "Copy default config to nginx folder"
+sudo cp -rf /home/opc/bin/oci-lets-encrypt/server-config/* /
+
+sudo service nginx restart
+
+sudo systemctl stop firewalld
+sudo systemctl disable firewalld
+#sudo systemctl status firewalld
+
 
 #Create a root rsa key 
 #ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa_rsync  -q -N ""

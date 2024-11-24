@@ -15,7 +15,7 @@ fi
 
 #Update configuration file 
 
-echo "LB_OCIID:"${LB_OCIID} >> /root/etc/oci_network.cfg
+echo "LB_OCIID:"${LB_OCIID} >> ~/bin/oci-lets-encrypt/etc/oci_network.cfg
 
 #rm /etc/letsencrypt/
 
@@ -25,7 +25,7 @@ echo "LB_OCIID:"${LB_OCIID} >> /root/etc/oci_network.cfg
 
 #Create a certificat in default domain
 #Get webroot directory for domain from nginx config file
-/usr/local/bin/certbot certonly --webroot -w /data/www/letsencrypt/htdoc -d ${DOMAIN}
+/usr/local/bin/certbot certonly --webroot -w /data/www/letsencrypt/ -d ${DOMAIN}
 
 #Check if certificate was created succesfully
 if [ ! -e /etc/letsencrypt/live/${DOMAIN} ]; then 

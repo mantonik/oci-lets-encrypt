@@ -21,7 +21,7 @@ wget https://github.com/mantonik/oci-lets-encrypt/archive/refs/heads/main.zip
 unzip main.zip 
 rm -f main.zip
 chmod 755 oci-lets-encrypt-main/bin/*.sh
-
+mv oci-lets-encrypt-main oci-lets-encrypt
 
 #Generate a key
 /home/opc/bin/oci-lets-encrypt-main/bin/oci-init.sh 
@@ -48,4 +48,6 @@ oci os ns get
 
 
 LB
+dmseo03.dmcloudarchitect.com
+mantonik@gmail.com
 ocid1.loadbalancer.oc1.us-sanjose-1.aaaaaaaajk2dwost2qsmsqifdlf65g64ub6a6ugodcwewixcv5gfy4xkichq
