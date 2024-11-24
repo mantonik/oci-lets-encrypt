@@ -1,6 +1,6 @@
 #!/bin/bash 
 #Script will generate ssl certificate for provided domain.
-
+# 11/23/2024 MA update scritp to be executed by regular user
 
 echo "Enter your domain name to create let's encrypt certificagte: "
 read DOMAIN

@@ -46,6 +46,9 @@ Validate connection to OCI
 
 oci os ns get
 
+# Generate certificate 
+~/bin/oci-lets-encrypt/bin/1.lets_encrypt_get_ssl_certificate.sh
+
 
 LB
 dmseo03.dmcloudarchitect.com
