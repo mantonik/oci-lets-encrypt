@@ -21,12 +21,13 @@ wget https://github.com/mantonik/oci-lets-encrypt/archive/refs/heads/main.zip
 unzip main.zip 
 rm -f main.zip
 chmod 755 oci-lets-encrypt-main/bin/*.sh
+
+
+#Generate a key
 /home/opc/bin/oci-lets-encrypt-main/bin/oci-init.sh 
 touch ~/.oci/config
 cat ~/.oci/oci_api_key_public.pem
 chmod 600 ~/.oci/*
-
-
 
 Login to OCI console and add API key 
 
@@ -45,3 +46,6 @@ Validate connection to OCI
 
 oci os ns get
 
+
+LB
+ocid1.loadbalancer.oc1.us-sanjose-1.aaaaaaaajk2dwost2qsmsqifdlf65g64ub6a6ugodcwewixcv5gfy4xkichq

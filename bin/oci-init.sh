@@ -36,7 +36,33 @@ sudo python -m ensurepip --upgrade
 sudo get-pip.py
 pip3 install certbot
 
+echo "Install required packages"
+sudo dnf install -y oraclelinux-release-el8
+sudo dnf config-manager --set-enabled ol8_developer_EPEL
+sudo dnf clean all
+#install required pacakes
+#sudo dnf install -y nginx php php-fpm php-mysqlnd php-json sendmail htop tmux mc rsync clamav clamav-update rclone setroubleshoot-server setools-console 
+sudo dnf install -y nginx sendmail htop tmux mc clamav clamav-update rclone setroubleshoot-server setools-console 
+sudo chkconfig nginx on
+
+
+echo "------"
+echo "Install nginx"
+echo "Create data directory for nginx"
+sudo mkdir -p /data/nginx/html;
+sudo mkdir -p /data/nginx/domain;
+sudo mkdir -p /data/nginx/letsencrypt;
+sudo echo "Server is working" >  /data/nginx/html/index.html
+sudo echo "Error 404" > /data/nginx/html/404.html
+sudo echo "Error 50x" > /data/nginx/html/50x.html
+#echo "Copy default config to nginx folder"
+sudo cp -rf /home/opc/bin/oci-lets-encrypt-main/server-config /
+
+service nginx restart
+
 #Create a root rsa key 
 #ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa_rsync  -q -N ""
 #cp ~/.ssh/id_rsa_rsync.pub /share/root_app1_id_rsa_rsync.pub
 #chown 600 ~/.ssh/*
+
+# /usr/share/nginx/html
