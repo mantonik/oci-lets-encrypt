@@ -37,7 +37,7 @@ if [ ! -e /etc/letsencrypt/live/${DOMAIN} ]; then
 fi
 
 
-lets_encrypts_update_oci_lb_ssl_cert.sh ${DOMAIN}
+~/bin/oci-lets-encrypt/bin/lets_encrypts_update_oci_lb_ssl_cert.sh ${DOMAIN}
 
 sudo chmod 700 /etc/letsencrypt/live
 
