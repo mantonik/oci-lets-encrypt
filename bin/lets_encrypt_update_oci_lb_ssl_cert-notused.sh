@@ -21,7 +21,7 @@ DOMAIN=$1
 #Get LB_OCIID
 #  sed 's/^.\{4\}//g
 
-LB_OCIID=`cat /root/etc/oci_network.cfg|grep LB_OCIID:|sed 's/^.\{9\}//g' `
+LB_OCIID=`cat $HOME/etc/oci_network.cfg|grep LB_OCIID:|sed 's/^.\{9\}//g' `
 
 echo "Update SSL certificate in LB for domain: " ${DOMAIN}
 

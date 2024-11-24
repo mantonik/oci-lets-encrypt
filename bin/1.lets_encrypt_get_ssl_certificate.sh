@@ -9,13 +9,13 @@ read EMAIL
 echo "Eneter OCI ID of the Load Balancer"
 read LB_OCIID
 
-if [ ! -e~/bin/oci-lets-encrypt/etc ]; then 
-  mkdir -p ~/bin/oci-lets-encrypt/etc
+if [ ! -e ~/etc ]; then 
+  mkdir -p ~/etc
 fi 
 
 #Update configuration file 
-touch ~/bin/oci-lets-encrypt/etc/oci_network.cfg
-echo "LB_OCIID:"${LB_OCIID} >> ~/bin/oci-lets-encrypt/etc/oci_network.cfg
+#touch ~/etc/oci_network.cfg
+#echo "LB_OCIID:"${LB_OCIID} >> ~/etc/oci_network.cfg
 
 #Register account 
 #ask user for email
@@ -37,12 +37,15 @@ if [ ! -e /etc/letsencrypt/live/${DOMAIN} ]; then
 fi
 
 
-~/bin/oci-lets-encrypt/bin/lets_encrypts_update_oci_lb_ssl_cert.sh ${DOMAIN}
+~/bin/oci-lets-encrypt/bin/2.lets_encrypt_update_oci_lb_ssl_cert.sh ${DOMAIN}
 
 sudo chmod 700 /etc/letsencrypt/live
 
 echo "Exit"
 exit
+
+
+~/bin/oci-lets-encrypt/bin/2.lets_encrypt_update_oci_lb_ssl_cert.sh dmseo03.dmcloudarchitect.com
 
 
 #chck if certificate is updated

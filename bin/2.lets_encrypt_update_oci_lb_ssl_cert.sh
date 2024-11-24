@@ -28,6 +28,7 @@ set +x
 # 2/5/2023 remove input paramaters
 # update script to handle multiple LB configuration base on the input file 
 
+# 11/24/2024 MA script will run throw all configured certificates and perform update with current date for each configured entry
 # To Do
 
 # update configuration file and add more elements in one single line 
@@ -122,8 +123,10 @@ function update_oci_lb () {
 
 export CERT_DT=`date +%Y%m%d_%H%M`
 
+REQ_DOMAIN=$1
+
 # Requirement
-# You need to update a file in root/etc.oci_netowrk.cfg file 
+# You need to update a file in ~/etc/oci_netowrk.cfg file 
 # Entry has to be in format
 
 # 
@@ -131,6 +134,10 @@ export CERT_DT=`date +%Y%m%d_%H%M`
 #ocid1.loadbalancer.oc1.iad.aaaaaaaaggx4x56erajsyc7pxjoznsykpnof32e5t7npujihmcx4dxf7qtfq:ocidemo3.ddns.net:bk_app:LS_443:HTTP::lb_hostnames
 #
 # in this IFS need to be null to make process to read a  line in the script
+
+#Add parameters 0 domain to process only for this domain 
+
+
 while read -r CFGLINE
 do 
   old_IFS=$IFS
@@ -154,14 +161,28 @@ do
   LB_HOSTNAME_JSON=${LINE[6]}
   
   #execute update of the load balancer
-  update_oci_lb
+  if [ ${REQ_DOMAIN}"x" != "x"]; then 
+    echo "Process update only to specific domain ${REQ_DOMAIN}";
+
+    if [ ${DOMAIN} == ${REQ_DOMAIN} ]; then 
+      echo "Update oci lb for requested domain ${DOMAIN}"
+      update_oci_lb
+
+      echo "update completed for requested domain"
+      IFS=${old_IFS}
+      exit
+    fi 
+  else
+    echo "Update oci lb for domain ${DOMAIN}"
+    update_oci_lb
+  fi  
 
   #set back IFS to old value
   IFS=${old_IFS}
 done < $HOME/etc/oci_network.cfg 
 
 #Delete not used SSL certificates
-$HOME/server-config/bin/oci_lb_delete_not_used_certificates.sh
+$HOME/bin/oci-lets-encrypt/bin/oci_lb_delete_not_used_certificates.sh
 
 # version 2/5/2023 1:24
 exit
