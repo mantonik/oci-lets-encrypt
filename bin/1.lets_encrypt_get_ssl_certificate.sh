@@ -21,11 +21,14 @@ echo "LB_OCIID:"${LB_OCIID} >> ~/bin/oci-lets-encrypt/etc/oci_network.cfg
 
 #Register account 
 #ask user for email
-/usr/local/bin/certbot register -m ${EMAIL}  --agree-tos
+
+sudo /usr/local/bin/certbot register -m ${EMAIL}  --agree-tos --non-interactive
 
 #Create a certificat in default domain
 #Get webroot directory for domain from nginx config file
-/usr/local/bin/certbot certonly --webroot -w /data/www/letsencrypt/ -d ${DOMAIN}
+# sudo /usr/local/bin/certbot register -m mantonik+letsencrypt@gmail.com  --agree-tos --non-interactive
+# sudo /usr/local/bin/certbot certonly --dry-run --webroot -w /data/nginx/letsencrypt/ -d dmseo03.dmcloudarchitect.com
+sudo /usr/local/bin/certbot certonly --webroot -w /data/nginx/letsencrypt/ -d ${DOMAIN}
 
 #Check if certificate was created succesfully
 if [ ! -e /etc/letsencrypt/live/${DOMAIN} ]; then 
