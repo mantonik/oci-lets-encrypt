@@ -17,9 +17,13 @@ fi
 #touch ~/etc/oci_network.cfg
 #echo "LB_OCIID:"${LB_OCIID} >> ~/etc/oci_network.cfg
 
+#Set permissions for letsencrytp file system
+#when script will run we will update permissions that user and read values and update OCI LB as needed 
+sudo chmod 700 /etc/letsencrypt/archive
+sudo chmod 700 /etc/letsencrypt/live
+
 #Register account 
 #ask user for email
-
 sudo /usr/local/bin/certbot register -m ${EMAIL}  --agree-tos --non-interactive
 
 #Create a certificat in default domain
@@ -36,16 +40,17 @@ if [ ! -e /etc/letsencrypt/live/${DOMAIN} ]; then
   exit
 fi
 
-
 ~/bin/oci-lets-encrypt/bin/2.lets_encrypt_update_oci_lb_ssl_cert.sh ${DOMAIN}
 
+#Change permissions for key folders back
+sudo chmod 700 /etc/letsencrypt/archive
 sudo chmod 700 /etc/letsencrypt/live
 
 echo "Exit"
 exit
 
 
-~/bin/oci-lets-encrypt/bin/2.lets_encrypt_update_oci_lb_ssl_cert.sh dmseo03.dmcloudarchitect.com
+#~/bin/oci-lets-encrypt/bin/2.lets_encrypt_update_oci_lb_ssl_cert.sh dmseo03.dmcloudarchitect.com
 
 
 #chck if certificate is updated

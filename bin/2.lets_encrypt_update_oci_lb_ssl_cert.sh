@@ -51,6 +51,13 @@ function update_oci_lb () {
   echo "Update SSL certificate in LB for domain: " ${DOMAIN}
 
   cd /etc/letsencrypt/live/${DOMAIN}
+
+  #Update permissions for each file that we can read those files 
+  sudo chmod 644 privkey.pem
+  #sudo chmod 644 chain.pem  
+  #sudo chmod 644 fullchain.pem
+  #sudo chmod 644 privkey.pem
+
   #Update the certificate
   oci lb certificate create --certificate-name  ${DOMAIN}.${CERT_DT} \
   --load-balancer-id  ${LB_OCIID} \
@@ -115,6 +122,12 @@ function update_oci_lb () {
   done
   echo ""
 
+  #echo "change permission back to root only"
+  sudo chmod 600 privkey.pem
+  #sudo chmod 644 chain.pem  
+  #sudo chmod 644 fullchain.pem
+  #sudo chmod 644 privkey.pem
+
 } #  end update_oci_lb
 
 #########################################################
@@ -137,9 +150,14 @@ REQ_DOMAIN=$1
 
 #Add parameters 0 domain to process only for this domain 
 
+#set permissions of lets encrypt folder 
+sudo chmod 755 /etc/letsencrypt/archive
+sudo chmod 755 /etc/letsencrypt/live
+
 
 while read -r CFGLINE
 do 
+  echo "Process config line: "${CFGLINE}
   old_IFS=$IFS
   if [ ${CFGLINE:0:1} == "#"  ] ; then    
     continue
@@ -181,8 +199,13 @@ do
   IFS=${old_IFS}
 done < $HOME/etc/oci_network.cfg 
 
+#Change permissions for key folders back
+sudo chmod 700 /etc/letsencrypt/archive
+sudo chmod 700 /etc/letsencrypt/live
+
 #Delete not used SSL certificates
 $HOME/bin/oci-lets-encrypt/bin/oci_lb_delete_not_used_certificates.sh
+
 
 # version 2/5/2023 1:24
 exit

@@ -25,6 +25,10 @@ chmod 755 oci-lets-encrypt-main/bin/*.sh
 cd ~/bin 
 mv oci-lets-encrypt-main oci-lets-encrypt
 
+sudo cp -rf /home/opc/bin/oci-lets-encrypt/server-config/* /
+sudo service nginx restart
+
+
 #Generate a key
 /home/opc/bin/oci-lets-encrypt-main/bin/oci-init.sh 
 touch ~/.oci/config
